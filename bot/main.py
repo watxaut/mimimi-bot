@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def write_json_users(user_id, language):
-    path_json = Path(".") / "bot/users.json"
+    path_json = Path(".") / "users/users.json"
     f = open(path_json, "r")
     json_users = json.load(f)
     f.close()
@@ -22,7 +22,7 @@ def write_json_users(user_id, language):
 
 
 def read_language_user(user_id):
-    path_json = Path(".") / "bot/users.json"
+    path_json = Path(".") / "users/users.json"
     f = open(path_json, "r")
     json_users = json.load(f)
     f.close()
@@ -62,7 +62,7 @@ def input_received(bot, update):
         return
 
     bot.send_message(update.message.chat_id, text_i)
-    bot.send_voice(update.message.chat_id, voice=open(file_i, 'rb'))
+    bot.send_audio(update.message.chat_id, audio=open(file_i, 'rb'))
 
 
 def response(bot, update) -> None:

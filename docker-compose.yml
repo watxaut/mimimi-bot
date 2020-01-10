@@ -1,0 +1,9 @@
+version: '3'
+services:
+  mimimitify:
+    image: mimimitify:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./users:/usr/src/app/users
