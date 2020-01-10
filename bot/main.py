@@ -40,23 +40,29 @@ def choose_language(bot, update):
 
 
 def start(bot, update):
+    logger.info("New user logged in")
     choose_language(bot, update)
 
 
 def input_received(bot, update):
     user_id = str(update.message.chat.id)
-    logger.info("Input received")
     if update.message.text is not None:
-        update.message.reply_text('No understando')
+        logger.info("Text input received")
+        language = read_language_user(user_id)
+        text_i = mimimitifyer.main.change_all_vowels(update.message.text)
+        file_i = mimimitifyer.main.text_to_speech(text_i, language)
     elif update.message.voice is not None:
         logger.info("Voice input received")
         language = read_language_user(user_id)
         audio_file_path = update.message.voice.get_file()['file_path']
         file_i, text_i = mimimitifyer.main.mimimitify(audio_file_path, language=language)
-        bot.send_message(update.message.chat_id, text_i)
-        bot.send_voice(update.message.chat_id, voice=open(file_i, 'rb'))
+
     else:
         update.message.reply_text('No understando')
+        return
+
+    bot.send_message(update.message.chat_id, text_i)
+    bot.send_voice(update.message.chat_id, voice=open(file_i, 'rb'))
 
 
 def response(bot, update) -> None:
