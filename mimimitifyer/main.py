@@ -42,11 +42,11 @@ def speech_to_text(audio_file: str, language: str):
 
 def text_to_speech(text: str, language: str):
     speech = gTTS(text=text, lang=language, slow=False)
-    tmp = tempfile.NamedTemporaryFile(delete=False)
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".ogg")
     speech.save(tmp.name)
     logger.info("Converted text to sound")
     sound = AudioSegment.from_mp3(tmp.name)
-    sound.export(tmp.name, format="ogg")
+    sound.export(tmp.name, format="ogg", codec="opus", parameters=["-strict", "-2"])
     logger.info(f"Exported file to ogg")
     logger.info(f"File location {tmp.name}")
     # return tmp.name

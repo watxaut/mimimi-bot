@@ -62,12 +62,12 @@ def input_received(bot, update):
         return
 
     bot.send_message(update.message.chat_id, text_i)
-    bot.send_audio(update.message.chat_id, audio=open(file_i, 'rb'))
+    bot.send_voice(update.message.chat_id, voice=open(file_i, 'rb'))
 
 
 def response(bot, update) -> None:
     user_id = str(update.callback_query.from_user.id)
-    bot_message = update.callback_query.message.text
+    bot_message = update.callback_query.message.texts
     language = update.callback_query.data
 
     if "Choose your language" in bot_message:
