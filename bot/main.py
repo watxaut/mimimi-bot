@@ -67,7 +67,7 @@ def input_received(bot, update):
 
 def response(bot, update) -> None:
     user_id = str(update.callback_query.from_user.id)
-    bot_message = update.callback_query.message.texts
+    bot_message = update.callback_query.message.text
     language = update.callback_query.data
 
     if "Choose your language" in bot_message:
